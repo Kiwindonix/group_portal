@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for media in media_files %}
+<img src="{{ media.file.url }}" alt="" style="max-width: 1000px;">
+
+<video width="220" height="140" controls>
+<source src="{{ media.file.url }}" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+{% endfor %}
+
+{% endblock %}
