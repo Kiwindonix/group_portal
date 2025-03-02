@@ -13,7 +13,7 @@ from datetime import timedelta, date
 # якщо запит відправляє вчитель, то показувати йому оцінки по його предмету усіх студентів
 
 
-from .models import Student, Diary, Day, Mark, Subject
+from .models import Student, Diary, Mark, Subject
 
 def diary_view(request):
     # Отримання всіх даних із щоденника
@@ -24,9 +24,6 @@ def diary_view(request):
         'diary_entries': diary_entries,
     }
     return render(request, 'diary/diary.html', context)
-
-
-
 
 
 
@@ -53,7 +50,6 @@ def get_marks(request, student_id=None, date=None):
     # Створюємо словник для зберігання оцінок за кожен день тижня для кожного предмету
     weekly_schedule = {}
     
-
     for subject in info:
         weekly_schedule[subject] = {}
         for day in days_of_week:
@@ -79,3 +75,27 @@ def get_marks(request, student_id=None, date=None):
         }
     }
     return render(request, 'diary/diary.html', context)
+
+
+
+from django.http import HttpResponse
+from auth_system.models import CustomUser
+from .models import Student, Teacher
+
+def migrate_users_view(request):
+    existing_users = CustomUser.objects.all()
+    for user in existing_users:
+        if user.is_superuser:
+            if not Teacher.objects.exists(teacher=user):
+                Teacher.objects.create(
+                    teacher = user
+                )
+                print(f'Added superuser as teacher: {user}')
+        else:
+            if not Student.objects.filter(student=user).exists():
+                Student.objects.create(
+                    student = user
+                )
+                print(f'Added user as student: {user}')
+    
+    return HttpResponse("User migration completed.")

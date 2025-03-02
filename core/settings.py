@@ -40,10 +40,9 @@ INSTALLED_APPS = [
     'auth_system',
     'diary',
     'main',
- 
     'calendar_events',  # Додаємо додаток календаря
+    'group',
     'gallery',
-    
 
 ]
 
