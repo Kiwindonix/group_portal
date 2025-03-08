@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .new h2 {
+        font-size: 50px;
+        text-align: center;
+    }
+    .new p {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        position: relative;
+        text-align: left;
+        margin-block: 20px;
+    }
+    .new {
+        width: 1200px;
+        background: color-mix(in srgb, var(--bg-col) 85%, var(--text-col));
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        margin-block: 10px; 
+    }
+    .title {
+        text-align: center;
+        width: 600px;
+        background: color-mix(in srgb, var(--bg-col) 85%, var(--text-col));
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        margin-block: 10px; 
+    }
+</style>
+<h1 class="title">
+    Новини
+</h1>
+{% for new in news %}
+<div class="new">
+    <h2>{{ new.title }}</h2>
+    <p>{{ new.content }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}
